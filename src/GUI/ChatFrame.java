@@ -151,7 +151,6 @@ public class ChatFrame extends JFrame implements ClientNotify {
 				try {
 					daclient.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				System.exit(0);
@@ -425,7 +424,6 @@ public class ChatFrame extends JFrame implements ClientNotify {
 				return true;
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -567,16 +565,6 @@ public class ChatFrame extends JFrame implements ClientNotify {
 
 	@Override
 	public void notifyNewMessage(ChatSession session, String msg) {
-		// for (int i = 0; i < tabbedpane.getTabCount(); i++) {
-		// if (tabbedpane.getTitleAt(i).equals(getPartnerName(session, nick))) {
-		// for (GUISession guisession : guiSessions) {
-		// if (getPartnerName(guisession.getChatSession(), nick)
-		// .equals(getPartnerName(session, nick))) {
-		// guisession.notifyNewMessage(i, msg);
-		// }
-		// }
-		// }
-		// }
 
 		for (GUISession sessions : guiSessions) {
 
