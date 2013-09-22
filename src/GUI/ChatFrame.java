@@ -53,17 +53,10 @@ public class ChatFrame extends JFrame implements ClientNotify {
 
 	private String settingsPath;
 
-	private JButton btnOK;
-	private JTextArea taInput;
-	private JTextArea taOutput;
-	private JScrollPane scrollInput;
-	private JScrollPane scrollOutput;
-
 	private JTabbedPane tabbedpane;
 
 	private DaCryClient daclient;
 
-	private int groesseBTN = 80;
 	private String nick = "<Nick>";
 
 	private BorderLayout borderLayout;
