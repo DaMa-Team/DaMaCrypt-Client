@@ -29,7 +29,6 @@ public class DaCryClient extends Thread implements Runnable {
 
 	private DataInputStream in;
 	private DataOutputStream out;
-
 	private Client.UserHandling.User[] onlineusers;
 	private ArrayList<ChatSession> openChats;
 
