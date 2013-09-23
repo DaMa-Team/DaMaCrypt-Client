@@ -77,12 +77,12 @@ public class ServerSettings extends JDialog {
 		lblNewLabel_2.setBounds(12, 83, 70, 15);
 		contentPanel.add(lblNewLabel_2);
 		
-		tfIP = new JTextField();
+		tfIP = new JTextField(ctframe.getServerIP());
 		tfIP.setBounds(105, 37, 114, 26);
 		contentPanel.add(tfIP);
 		tfIP.setColumns(10);
 		
-		tfPort = new JTextField();
+		tfPort = new JTextField("" + ctFrame.getServerPORT());
 		tfPort.setBounds(105, 83, 114, 26);
 		contentPanel.add(tfPort);
 		tfPort.setColumns(10);

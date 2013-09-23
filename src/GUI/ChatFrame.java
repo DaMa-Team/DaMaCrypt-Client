@@ -168,6 +168,7 @@ public class ChatFrame extends JFrame implements ClientNotify {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
+					if(daclient != null)
 					daclient.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -527,7 +528,14 @@ public class ChatFrame extends JFrame implements ClientNotify {
 			try {
 				client = new DaCryClient(serverIP, serverPORT, nick, this);
 			} catch (UnknownHostException e) {
-				// TODO host not found
+				// TODO doesn't work
+				JOptionPane
+				.showMessageDialog(
+						this,
+						"Your request server wasn't found, please check the settings!",
+						"Host not found", JOptionPane.ERROR_MESSAGE);
+				ServerSettings ss = new ServerSettings(this);
+				startClient();
 			} catch (IOException e) {
 				// TODO server full etc. exception
 				e.printStackTrace();
@@ -643,6 +651,14 @@ public class ChatFrame extends JFrame implements ClientNotify {
 			}
 		}
 
+	}
+	
+	public String getServerIP() {
+		return serverIP;
+	}
+
+	public int getServerPORT() {
+		return serverPORT;
 	}
 
 }
