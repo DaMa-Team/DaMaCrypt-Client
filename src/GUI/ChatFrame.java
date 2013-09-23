@@ -35,6 +35,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -140,7 +141,7 @@ public class ChatFrame extends JFrame implements ClientNotify {
 				super.paint(g);
 			};
 		};
-//		tabbedpane.setPreferredSize(new Dimension(500, 500));
+		// tabbedpane.setPreferredSize(new Dimension(500, 500));
 		tabbedpane
 				.add("Welcome",
 						new JLabel(
@@ -522,8 +523,15 @@ public class ChatFrame extends JFrame implements ClientNotify {
 			startClient();
 
 		} else {
-			DaCryClient client = new DaCryClient(serverIP, serverPORT, nick,
-					this);
+			DaCryClient client = null;
+			try {
+				client = new DaCryClient(serverIP, serverPORT, nick, this);
+			} catch (UnknownHostException e) {
+				// TODO host not found
+			} catch (IOException e) {
+				// TODO server full etc. exception
+				e.printStackTrace();
+			}
 			this.setClient(client);
 			client.start();
 		}

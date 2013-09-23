@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,7 +43,24 @@ public class DaCryClient extends Thread implements Runnable {
 
 	private Protocol protocol;
 
-	public DaCryClient(String url, int port, String nick, ClientNotify notify) {
+	/**
+	 * 
+	 * @param url
+	 *            The URL to the host server.
+	 * @param port
+	 *            The Port of the host server.
+	 * @param nick
+	 *            The nick you want to have
+	 * @param notify
+	 *            An implementation of the {@link ClientNotify} Interface
+	 * @throws UnknownHostException
+	 *             If your host is not found this Exception will be thrown
+	 * @throws IOException
+	 *             If the socket has problems with Input Output stuff. Or if the
+	 *             server is Full.
+	 */
+	public DaCryClient(String url, int port, String nick, ClientNotify notify)
+			throws UnknownHostException, IOException {
 		// save notify interface
 		this.notify = notify;
 		// init register
@@ -50,18 +68,24 @@ public class DaCryClient extends Thread implements Runnable {
 		// init write lock
 		openChats = new ArrayList<ChatSession>();
 		// start client and create the streams.
+		client = new Socket(url, port);
 		try {
-			client = new Socket(url, port);
 			out = new DataOutputStream(client.getOutputStream());
 			in = new DataInputStream(client.getInputStream());
 			protocol = new Protocol(in, out);
 			id = protocol.applyForID();
+
 			// sent your name
 			setClientName(nick);
 			// send command to get the online list
 			protocol.writeOnlineListApply();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		if (id == -1) {
+			// TODO implement an special Exception type.
+			close();
+			throw new IOException("Server is Full !");
 		}
 	}
 
